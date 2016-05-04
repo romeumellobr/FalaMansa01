@@ -9,9 +9,17 @@ int releLuzes = A5;
 int sinalLuzes = A2;
 int botaoSirene = 3;
 int botaoLuzes = 2;
+int buzzer = 10;
+int ledR = 6;
+int ledG = 7;
+int ledB = 8;
 void setup(){
-  Serial.begin(9600);
+  //Serial.begin(9600);
   //definindo modos de portas
+  pinMode(buzzer, OUTPUT);
+  pinMode(ledR, OUTPUT);
+  pinMode(ledG, OUTPUT);
+  pinMode(ledB, OUTPUT);
   pinMode(releSirene, OUTPUT);
   pinMode(releLuzes, OUTPUT);
   pinMode(sinalSirene, INPUT_PULLUP);
@@ -30,29 +38,25 @@ void setup(){
  
 }
  void loop(){  
-  /*
-  Serial.println(digitalRead(sinalLuzes));
-  delay(330);
-  if (digitalRead(pushButton) == HIGH){ 
-  digitalWrite(releSirene, HIGH);
-  delay(100);
-}
-  if (digitalRead(pushButton) == LOW){ 
-  digitalWrite(releSirene, LOW);
-  delay(100);
-}
-*/
+
+// if ((digitalRead(A)==1) && (digitalRead(B)==1) && (millis()>=2000) {
+ //}
+ // precionar os 2 push button para mudar a gravação
 //Serial.println(digitalRead(sinalSirene));
 //  delay(330);
 
-  if (digitalRead(sinalLuzes) == HIGH || digitalRead(botaoLuzes) == HIGH){ 
+  if (digitalRead(sinalLuzes) == HIGH || digitalRead(botaoLuzes) == HIGH ){ 
   digitalWrite(releLuzes, HIGH);
-  delay(100);
+  digitalWrite(ledB, HIGH);
+  tone(buzzer, 440);
+  delay(10);
 }
 
 
 if (digitalRead(sinalSirene) == LOW && digitalRead(sinalLuzes) == LOW && digitalRead(botaoLuzes) == LOW ){ 
   digitalWrite(releLuzes, LOW);
+  digitalWrite(ledB, LOW);
+  noTone(buzzer);
   delay(100);
 }
 
